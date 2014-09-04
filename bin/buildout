@@ -1,0 +1,32 @@
+#!/bin/bash
+echo "\n\n============[ removing existing localpython ]============\n\n"
+sudo rm -rf ~/.localpython
+sudo rm ~/Downloads/ez_setup.py
+
+#echo "\n\n============[ downloading python ]============\n\n"
+cd ~/Downloads
+#wget https://www.python.org/ftp/python/2.7.5/Python-2.7.5.tar.xz
+#tar -zxvf Python-2.7.5.tar.xz
+
+echo "\n\n============[ installing python ]============\n\n"
+mkdir ~/.localpython
+cd Python-2.7.5
+./configure --prefix=$HOME/.localpython
+make
+make install
+
+echo "\n\n============[ getting setuptools ]============\n\n"
+cd ~/Downloads
+wget https://bootstrap.pypa.io/ez_setup.py 
+~/.localpython/bin/python ez_setup.py
+
+
+echo "\n\n============[ getting pip ]============\n\n"
+sudo ~/.localpython/bin/easy_install pip
+
+echo "\n\n============[ getting numpy ]============\n\n"
+sudo ~/.localpython/bin/pip install numpy
+
+echo "\n\n============[ running setup.py ]============\n\n"
+cd ~/205/metaprogramming/src/metaprogramming
+~/.localpython/bin/python setup.py develop

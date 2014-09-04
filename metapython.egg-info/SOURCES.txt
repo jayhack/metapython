@@ -1,0 +1,6 @@
+README
+metaprogramming.egg-info/PKG-INFO
+metaprogramming.egg-info/SOURCES.txt
+metaprogramming.egg-info/dependency_links.txt
+metaprogramming.egg-info/requires.txt
+metaprogramming.egg-info/top_level.txt

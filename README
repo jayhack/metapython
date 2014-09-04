@@ -1,0 +1,50 @@
+         _____          __        __________                                                   .__                
+        /     \   _____/  |______ \______   \_______  ____   ________________    _____   _____ |__| ____    ____  
+       /  \ /  \_/ __ \   __\__  \ |     ___/\_  __ \/  _ \ / ___\_  __ \__  \  /     \ /     \|  |/    \  / ___\ 
+      /    Y    \  ___/|  |  / __ \|    |     |  | \(  <_> ) /_/  >  | \// __ \|  Y Y  \  Y Y  \  |   |  \/ /_/  >
+      \____|__  /\___  >__| (____  /____|     |__|   \____/\___  /|__|  (____  /__|_|  /__|_|  /__|___|  /\___  / 
+	          \/     \/          \/                       /_____/            \/      \/      \/        \//_____/  
+
+                                            by 205 Consulting, Summer 2014
+
+Installing MetaProgramming
+==========================
+
+Mac OS X Mavericks
+------------------
+MetaProgramming depends on SciPy, so you'll need Xcode command line developer tools, and possibly a fortran compiler
+for scipy. Gfortran has an installer for Mac [here]("https://gcc.gnu.org/wiki/GFortranBinaries#MacOS").
+
+Running `python setup.py develop` on the python of your choice should suffice for processing package dependencies.
+Below are directions for building a clean local python from sources.
+
+[Note: there is a setup script `bin/buildout` which works on my MacBook Pro, OS X 10.9.4.]
+
+* Step 1: clone the project.
+* Step 2: build a clean local python.
+
+```
+cd ~/Downloads
+wget https://www.python.org/ftp/python/2.7.5/Python-2.7.5.tar.xz
+tar -zxvf Python-2.7.5.tar.xz
+mkdir ~/.localpython
+cd Python-2.7.5
+./configure --prefix=$HOME/.localpython
+make
+make install
+```
+
+* get setuptools
+
+```
+cd ~/Downloads
+wget https://bootstrap.pypa.io/ez_setup.py 
+~/.localpython/bin/python ez_setup.py
+```
+
+* run `setup.py`
+
+```
+~/.localpython/bin/python src/metaprogramming/setup.py develop
+```
+

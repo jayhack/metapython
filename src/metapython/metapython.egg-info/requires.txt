@@ -1,0 +1,10 @@
+numpy
+scipy
+pandas
+lazy_format
+scikit-learn
+gensim
+nltk
+simplejson
+ijson
+nose

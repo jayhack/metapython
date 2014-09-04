@@ -1,0 +1,8 @@
+*.pyc
+*.json
+*.df
+*/filepaths.py
+bin/build_clean
+bin/ipython
+metaprogramming.egg-info/
+

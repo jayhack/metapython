@@ -1,10 +1,10 @@
 Metadata-Version: 1.0
-Name: metaprogramming
+Name: metapython
 Version: 0.0.1
-Summary: a collection of abstractions for data modeling and manipulation.
+Summary: a utility for rapidly prototyping data scientific pipelines
 Home-page: UNKNOWN
-Author: 205 Consulting
-Author-email: projects@205consulting.com
+Author: Jay Hack
+Author-email: jhack@stanford.edu
 License: UNKNOWN
 Description: UNKNOWN
 Platform: UNKNOWN

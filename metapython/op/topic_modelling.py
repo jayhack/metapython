@@ -2,9 +2,9 @@
 import pandas as pd
 import gensim
 
-from metaprogramming.op.Op import *
-from metaprogramming.op.std import *
-from metaprogramming.op.pandas_util import *
+from metapython.op.Op import *
+from metapython.op.std import *
+from metapython.op.pandas_util import *
 
 
 ################################################################################

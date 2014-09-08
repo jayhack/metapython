@@ -2,7 +2,7 @@ import inspect
 import re
 from functools import wraps, partial
 
-from metaprogramming.op.Op import *
+from metapython.op.Op import *
 
 def op(num_out=1, func=None):
 	'''

@@ -11,9 +11,9 @@
 import numpy as np
 import pandas as pd
 
-from metaprogramming.op.Op import *
-from metaprogramming.op.pandas_util import *
-from metaprogramming.op.std import *
+from metapython.op.Op import *
+from metapython.op.pandas_util import *
+from metapython.op.std import *
 
 '''
 	Op: groupby/agg

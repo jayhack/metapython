@@ -1,8 +1,8 @@
 import unittest
 import nose
 
-from metaprogramming.op.Op import *
-from metaprogramming.op.text_preprocessing import *
+from metapython.op.Op import *
+from metapython.op.text_preprocessing import *
 
 ################################################################################
 ####################[ text_preprocessing ]######################################

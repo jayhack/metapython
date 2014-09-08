@@ -5,8 +5,8 @@ import json
 import simplejson
 import csv
 
-from metaprogramming.stor.Stor import *
-from metaprogramming.stor.MemoryStor import *
+from metapython.stor.Stor import *
+from metapython.stor.MemoryStor import *
 
 
 def blocks_from_generator(gen, size):

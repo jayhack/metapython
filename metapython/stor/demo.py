@@ -1,6 +1,6 @@
 import simplejson
 
-from metaprogramming.stor.Stor import *
+from metapython.stor.Stor import *
 
 if __name__ == '__main__':
 

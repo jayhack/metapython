@@ -18,7 +18,7 @@ import nltk
 from nltk.stem.porter import PorterStemmer
 import matplotlib.pyplot as plt
 
-from metaprogramming.op.pandas_util import *
+from metapython.op.pandas_util import *
 
 
 ################################################################################

@@ -2,7 +2,7 @@ import json
 import simplejson
 import pandas as pd
 
-from metaprogramming.stor.Stor import *
+from metapython.stor.Stor import *
 
 
 class MemoryStor(Stor):

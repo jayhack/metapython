@@ -3,10 +3,10 @@ import pandas as pd
 import nltk
 from nltk.stem.porter import PorterStemmer
 
-from metaprogramming.op.Op import *
-from metaprogramming.op.decorators import *
-from metaprogramming.op.std import *
-from metaprogramming.op.pandas_util import *
+from metapython.op.Op import *
+from metapython.op.decorators import *
+from metapython.op.std import *
+from metapython.op.pandas_util import *
 
 ################################################################################
 ####################[ String Manipulation Functions ]###########################

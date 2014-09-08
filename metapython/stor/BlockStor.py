@@ -1,8 +1,8 @@
 import os
 import sys
 
-from metaprogramming.stor.Stor import *
-from metaprogramming.stor.MemoryStor import *
+from metapython.stor.Stor import *
+from metapython.stor.MemoryStor import *
 
 
 class BlockStor(Stor):

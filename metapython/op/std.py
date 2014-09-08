@@ -3,8 +3,8 @@
 	===========
 	contains the standard ops that apply to all data types
 """
-from metaprogramming.op.Op import *
-from metaprogramming.op.decorators import *
+from metapython.op.Op import *
+from metapython.op.decorators import *
 
 ################################################################################
 ####################[ Basic Operand Manipulation ]##############################

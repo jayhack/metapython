@@ -1,12 +1,12 @@
 import unittest
 import nose
 
-from metaprogramming.op.Op import *
-from metaprogramming.op.pandas_formatting import *
-from metaprogramming.op.text_preprocessing import *
-from metaprogramming.op.topic_modelling import *
-from metaprogramming.op.print_utils import *
-from metaprogramming.op.featurize import *
+from metapython.op.Op import *
+from metapython.op.pandas_formatting import *
+from metapython.op.text_preprocessing import *
+from metapython.op.topic_modelling import *
+from metapython.op.print_utils import *
+from metapython.op.featurize import *
 
 
 def series_equal(s1, s2, precision=2):

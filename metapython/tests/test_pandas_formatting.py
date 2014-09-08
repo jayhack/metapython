@@ -1,9 +1,9 @@
 import unittest
 import nose
 
-from metaprogramming.op.Op import *
-from metaprogramming.op.std import *
-from metaprogramming.op.pandas_formatting import *
+from metapython.op.Op import *
+from metapython.op.std import *
+from metapython.op.pandas_formatting import *
 
 
 ################################################################################

@@ -4,5 +4,7 @@
 */filepaths.py
 bin/build_clean
 bin/ipython
+bin/python
+bin/nosetests
 metaprogramming.egg-info/
 

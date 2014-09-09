@@ -18,6 +18,8 @@ metapython/op/print_utils.py
 metapython/op/std.py
 metapython/op/text_preprocessing.py
 metapython/op/topic_modelling.py
+metapython/solv/Solv.py
+metapython/solv/__init__.py
 metapython/stor/BlockStor.py
 metapython/stor/DiskStor.py
 metapython/stor/MemoryStor.py

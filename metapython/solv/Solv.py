@@ -23,7 +23,7 @@ class SolvProblem(SearchProblem):
 		"""
 			returns the set of paths that action can apply itself to
 		"""
-		return action['xpath'](state)
+		return action['bind_site'](state)
 
 
 	def action_applies(self, state, action):
@@ -44,7 +44,7 @@ class SolvProblem(SearchProblem):
 		actions = [action for action in self.actions_list if self.action_applies(state, action)]
 		print "===[ ACTIONS ]==="
 		for action in actions:
-			print action['xpath']
+			print action['bind_site']
 		return actions
 
 

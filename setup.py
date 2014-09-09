@@ -13,6 +13,7 @@ setup(
 			'scipy',
 			'pandas',
 			'lazy_format',
+                        'simpleai',
 			'scikit-learn',
 			'gensim',
 			'nltk',

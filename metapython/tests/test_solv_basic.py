@@ -44,7 +44,7 @@ combine_blocks = {
 #Goal: go from two csv files to a tokenized version that combines them into blocks
 INITIAL_STATE = etree.fromstring("""
 <root>
-	<filesystem location="/Users/jayhack/Desktop/205/Shaker/data">
+	<filesystem type="local_disk" path="/Users/jayhack/Desktop/205/Shaker/data">
 		<file_resource type="flat_file" format="csv" location="sessions_1.csv">
 			<column name="sessionId" type="int" />
 			<column name="A" type="text" tokenized="False" lowercased="False" />

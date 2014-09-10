@@ -1,51 +1,48 @@
-from copy import deepcopy
+import copy
 from simpleai.search import SearchProblem
-from simpleai.search.traditional import breadth_first
+from simpleai.search.traditional import depth_first
 from lxml import etree
 
 class SolvProblem(SearchProblem):
+	"""
+		Spec:
 
-	################################################################################
-	####################[ Interface for Op Scripts ]################################
-	################################################################################
+			States: etree.ElementTree containing state
+			Actions: (op, target)
+				op - operation to be applied
+				target_path - xpath to where we will apply it
 
-	def __init__(self, initial_state, goal_state, actions_list):
+
+	"""
+
+	def __init__(self, initial_state, goal_state, ops_list, verbose=False):
 		super(SolvProblem, self).__init__(initial_state)
+		self.verbose = verbose
+
 		self.goal_state = None
-		self.actions_list = actions_list
+		self.ops_list = ops_list
 
 
-	################################################################################
-	####################[ Basic Methods for A* Search ]#############################
-	################################################################################
-
-	def apply_sites(self, state, action):
+	def get_target_paths(self, state, op):
 		"""
-			returns the set of paths that action can apply itself to
+			returns all nodes in state's "tree" to which op can bind
 		"""
-		return action['bind_site'](state)
-
-
-	def action_applies(self, state, action):
-		"""
-			returns true if the action can apply to the current state
-		"""
-		return len(self.apply_sites(state, action)) > 0
+		nodes = state.xpath(op['targets'])
+		paths = [state.getpath(n) for n in nodes]
+		return paths
 
 
 	def actions(self, state):
 		"""
-			returns the list of actions you can take in current state 
-				(this will be a list of Ops) 
-
-			:todo: have a list of actions that are accessible to this, return all 
-			that can actionerate on the current state
+			returns all (target_path, transformation) pairs that apply to 
+			the current state
 		"""
-		actions = [action for action in self.actions_list if self.action_applies(state, action)]
-		print "===[ ACTIONS ]==="
-		for action in actions:
-			print action['bind_site']
-		return actions
+		if self.verbose:
+			print "=====[ ACTIONS ]====="
+			print etree.tostring(state)
+			print [(op, tp) for op in self.ops_list for tp in self.get_target_paths(state, op)]
+
+		return [(op, tp) for op in self.ops_list for tp in self.get_target_paths(state, op)]
 
 
 
@@ -53,19 +50,11 @@ class SolvProblem(SearchProblem):
 		"""
 			returns what happens when you apply an action in a certain state 
 		"""
-		state = deepcopy(state)
-		print '#####[ APPLYING ACTION ]#####'
-		print action['name']
-		print action['xpath']
-		print "			BEFORE: "
-		print etree.tostring(state, pretty_print=True)
-		originals = self.apply_sites(state, action)
-		for original in originals:
-			action['transformation'](original)
-		print "			AFTER: "
-		print etree.tostring(state, pretty_print=True)
+		state = copy.deepcopy(state)
+		op, target_path = action
+		target = state.xpath(target_path)[0]
+		op['transformation'](target)
 		return state
-
 
 
 	def is_goal(self, state):
@@ -79,9 +68,8 @@ class SolvProblem(SearchProblem):
 			if e1.attrib != e2.attrib: return False
 			if len(e1) != len(e2): return False
 			return all([elements_equal(c1, c2) for c1, c2 in zip(e1, e2)])
-		equal = elements_equal(state, goal_state)
 
-		return elements_equal(state, goal_state)
+		return elements_equal(state.getroot(), goal_state.getroot())
 
 
 	def cost(self, state, action, state2):
@@ -96,7 +84,7 @@ class SolvProblem(SearchProblem):
 
 if __name__ == '__main__':
 
-	initial_state = etree.fromstring("""
+	initial_state = etree.ElementTree(etree.fromstring("""
 <filesystem location="/data/">
 	<dataframe>
 		<column name="A" type="text" tokenized="False" stemmed="False" lowercased="False" />
@@ -104,9 +92,9 @@ if __name__ == '__main__':
 		<column name="C" type="text" tokenized="False" stemmed="False" lowercased="False" />				
 	</dataframe>
 </filesystem>
-""")
+"""))
 
-	goal_state = etree.fromstring("""
+	goal_state = etree.ElementTree(etree.fromstring("""
 <filesystem location="/data/">
 	<dataframe>
 		<column name="A" type="text" tokenized="True" stemmed="True" lowercased="True" />
@@ -114,26 +102,26 @@ if __name__ == '__main__':
 		<column name="C" type="text" tokenized="True" stemmed="True" lowercased="True" />				
 	</dataframe>
 </filesystem>
-""")
+"""))
 
 	#=====[ Goal: tokenize and shit	]=====
 	tokenize = {
-					'xpath': etree.XPath('//dataframe/column[@type="text"][@tokenized="False"]'),
+					'targets':'//dataframe/column[@type="text"][@tokenized="False"]',
 					'transformation': lambda x: x.set('tokenized', 'True'),
 					'name':'tokenize'
 	}
 	lowercase = {
-					'xpath': etree.XPath('//dataframe/column[@type="text"][@lowercased="False"]'),
+					'targets':'//dataframe/column[@type="text"][@lowercased="False"]',
 					'transformation': lambda x: x.set('lowercased', 'True'),
 					'name':'lowercase'
 	}
 	stem = {
-					'xpath': etree.XPath('//dataframe/column[@type="text"][@stemmed="False"]'),
+					'targets':'//dataframe/column[@type="text"][@stemmed="False"]',
 					'transformation': lambda x: x.set('stemmed', 'True'),
 					'name':'stem'
 	}
-	solv = SolvProblem(initial_state, goal_state, [tokenize, lowercase, stem])
-	result = breadth_first(solv)
+	solv = SolvProblem(initial_state, goal_state, [tokenize, lowercase, stem], verbose=True)
+	result = depth_first(solv)
 
 
 

@@ -11,14 +11,14 @@ from metapython.solv.Solv import *
 # Step 1: load the flat csvs into memory
 load_flat_csv = {
 	'name': 'load_flat_csv',
-	'bind_site': etree.XPath('//filesystem/file_resource[@type="flat_file"][@format="csv"]'),
+	'targets': '//filesystem[@type="local_disk"]/file_resource[@type="flat_file"][@format="csv"]',
 	'transformation': lambda x: x.set('type', 'in_memory')
 }
 
 # Step 2: lowercase them
 lowercase = {
 	'name':'lowercase',
-	'bind_site': etree.XPath('//filesystem/file_resource[@type="in_memory"]/column[@type="text"][@lowercased="False"]'),
+	'targets': '//filesystem[@type="local_disk"]/file_resource[@type="in_memory"]/column[@type="text"][@lowercased="False"]',
 	'transformation': lambda x: x.set('lowercased', 'True')
 }
 
@@ -26,20 +26,27 @@ lowercase = {
 def imtb(node):
 	node.set('type', 'blocks')
 	node.set('location', './solvdata')
-	node.set('format_hash', 'TEMP_FORMAT_HASH')
 in_memory_to_blocks = {
 	'name': 'in_memory_to_blocks',
-	'bind_site': etree.XPath('//filesystem/file_resource[@type="in_memory"]'),
+	'targets': '//filesystem[@type="local_disk"]/file_resource[@type="in_memory"]',
 	'transformation': imtb
 }
 
 # Step 4: combine blocks (totally naive)
 combine_blocks = {
 	'name': 'combine_blocks',
-	'bind_site': etree.XPath('//filesystem[count(file_resource[@type="flat_file"]) >= 2]'),
+	'targets': '//filesystem[count(file_resource[@type="flat_file"]) >= 2]',
 	'transformation': lambda node: node.remove(node.getchildren()[0])
 }
 
+
+state = etree.fromstring("""
+<root>
+	<a />
+	<b>
+		<c />
+	</b>
+</root>""")
 
 #Goal: go from two csv files to a tokenized version that combines them into blocks
 INITIAL_STATE = etree.fromstring("""

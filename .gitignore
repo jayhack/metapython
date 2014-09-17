@@ -7,4 +7,4 @@ bin/ipython
 bin/python
 bin/nosetests
 metaprogramming.egg-info/
-
+.ipynb_checkpoints/

@@ -150,3 +150,20 @@ def porter_stemmer(df, cols=None):
 '''
 join_text_columns = store_transformation(func_str='''lambda df: combine_list_cols([df[c] for c in df.columns])''')
 
+
+'''
+	Op: dedupe_list
+	---------------
+	usage: 
+		dedupe_list (cols=['a']) (df)
+	params:
+		- cols: list of columns containing lists as values
+	description:
+		remove duplicates from the list.
+
+'''
+@op(num_out=1)
+def dedupe_list(df, cols=None):
+	for col in cols:
+		df[col] = df[col].apply(lambda l: list(set(l)) if type(l) == list else l)
+	return df

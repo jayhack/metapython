@@ -72,8 +72,8 @@ class BaseOp(object):
 		#=====[ Remove duplicates and null elements	]=====
 		symbol_table = symbol_table.ix[symbol_table.func_name.notnull()]
 		symbol_table = symbol_table.drop_duplicates()
-		if symbol_table.func_name.nunique() != len(symbol_table.func_name):
-			print "WARNING! The symbol table for this op contains duplicate function names. If these aren't the same function, you'll run into problems."
+		# if symbol_table.func_name.nunique() != len(symbol_table.func_name):
+			# print "WARNING! The symbol table for this op contains duplicate function names. If these aren't the same function, you'll run into problems."
 
 		self.symbol_table = symbol_table
 		self.symbol_table.index = self.symbol_table.func_name

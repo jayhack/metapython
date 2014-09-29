@@ -1,3 +1,4 @@
+
 """
  	Module: pandas_formatting
 	=========================
@@ -157,6 +158,7 @@ def extract_dict_value(df, cols=None, key=None):
 @op(num_out=1)
 def extract_list_dict_values(df, cols=None, key=None):
 	"""
+	WARNING!! this guy doesn't like to be chained for some reason.
 		usage: 
 		------
 			extract_list_dict_values(col='a', key='b', outcol='c')(df)
@@ -170,7 +172,7 @@ def extract_list_dict_values(df, cols=None, key=None):
 			described by 'key' in each element of the corresponding entry in 'incol'
 	"""
 	for col in cols:
-		df[col] = df[col].apply(lambda l: [d[key] for d in l] if type(l) == list else np.nan)
+		df["{incol}_{key}".format(incol=col, key=key)] = df[col].apply(lambda l: [d[key] for d in l] if type(l) == list and type(l[0]) != str else np.nan)
 	return df
 
 
